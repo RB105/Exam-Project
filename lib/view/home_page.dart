@@ -20,22 +20,82 @@ class HomePage extends StatelessWidget {
       ),
       body: Builder(
         builder: (context) {
+          // loading state
           if (context.watch<HomeProvider>().isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
+          } else if (context.watch<HomeProvider>().error.isNotEmpty) {
+            // error state
+            return Center(
+              child: Text(context.watch<HomeProvider>().error),
+            );
           } else {
-            return ListView.builder(
-              itemCount: context.watch<HomeProvider>().data.length,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(context
-                      .watch<HomeProvider>()
-                      .data[index]
-                      .name
-                      .toString()),
-                );
-              },
+            // success state
+            return ListView(
+              children: [
+                // users
+                ExpansionTile(
+                  title: const Text('Users'),
+                  children: <Widget>[
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: context.watch<HomeProvider>().users.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(context
+                              .watch<HomeProvider>()
+                              .users[index]
+                              .name
+                              .toString()),
+                        );
+                      },
+                    )
+                  ],
+                ),
+                // posts
+                ExpansionTile(
+                  title: const Text("Posts"),
+                  children: <Widget>[
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: context.watch<HomeProvider>().posts.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(context
+                              .watch<HomeProvider>()
+                              .posts[index]
+                              .title
+                              .toString()),
+                        );
+                      },
+                    )
+                  ],
+                )
+                // todos
+                ,
+                ExpansionTile(
+                  title: const Text("Todos"),
+                  children: <Widget>[
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const ClampingScrollPhysics(),
+                      itemCount: context.watch<HomeProvider>().todos.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(context
+                              .watch<HomeProvider>()
+                              .todos[index]
+                              .title
+                              .toString()),
+                        );
+                      },
+                    )
+                  ],
+                )
+              ],
             );
           }
         },

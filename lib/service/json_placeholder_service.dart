@@ -3,6 +3,7 @@ import 'package:exam_project/core/config/dio_config.dart';
 import 'package:exam_project/core/config/network_config.dart';
 import 'package:exam_project/core/constants/endpoints.dart';
 import 'package:exam_project/model/post_model.dart';
+import 'package:exam_project/model/todo_model.dart';
 import 'package:exam_project/model/users_model.dart';
 
 class JsonPlaceHolderService with DioConfigration {
@@ -29,9 +30,26 @@ class JsonPlaceHolderService with DioConfigration {
       Response response = await createRequest().get(EndPoints.post);
       // return List<PostModel>
       return NetworkSuccessResponse(
-          model: (response as List).map((e) => PostModel.fromJson(e)).toList());
+          model: (response.data as List)
+              .map((e) => PostModel.fromJson(e))
+              .toList());
     } on DioException catch (e) {
       // return network exception
+      return NetworkExceptionResponse(exception: catchError(e));
+    }
+  }
+
+  // get todos method
+  Future<NetworkResponse> getTodos() async {
+    try {
+      // send request /todos
+      Response response = await createRequest().get(EndPoints.todos);
+      // return List<TodoModel>
+      return NetworkSuccessResponse(
+          model: (response.data as List)
+              .map((e) => TodoModel.fromJson(e))
+              .toList());
+    } on DioException catch (e) {
       return NetworkExceptionResponse(exception: catchError(e));
     }
   }
