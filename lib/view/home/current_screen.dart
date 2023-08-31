@@ -1,5 +1,5 @@
-import 'package:exam_project/view/home_page.dart';
-import 'package:exam_project/view/settings_page.dart';
+import 'package:exam_project/view/home/home_page.dart';
+import 'package:exam_project/view/home/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class CurrentScreen extends StatefulWidget {

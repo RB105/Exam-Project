@@ -1,5 +1,5 @@
 import 'package:exam_project/provider/home_provider.dart';
-import 'package:exam_project/view/current_screen.dart';
+import 'package:exam_project/view/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: CurrentScreen(),
+      home: HomePage(),
     );
   }
 }
