@@ -44,82 +44,85 @@ class HomePage extends StatelessWidget {
               ));
             } else {
               // success state
-              return ListView(
-                children: [
-                  // users
-                  ExpansionTile(
-                    title: const Text('Users'),
-                    children: <Widget>[
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: context.watch<HomeProvider>().users.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(context
-                                .watch<HomeProvider>()
-                                .users[index]
-                                .name
-                                .toString()),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                  // posts
-                  ExpansionTile(
-                    title: const Text("Posts"),
-                    children: <Widget>[
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount:
-                            Provider.of<HomeProvider>(context, listen: false)
-                                .posts
-                                .length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            onTap: () {
-                              Navigator.of(context).push(FadePageRoute(
-                                parameter:
-                                    Provider.of<HomeProvider>(context, listen: false)
-                                .posts[index],
-                                builder: (context) =>
-                                    PostInfoPage(data: context),
-                              ));
-                            },
-                            title: Text(context
-                                .watch<HomeProvider>()
-                                .posts[index]
-                                .title
-                                .toString()),
-                          );
-                        },
-                      )
-                    ],
-                  )
-                  // todos
-                  ,
-                  ExpansionTile(
-                    title: const Text("Todos"),
-                    children: <Widget>[
-                      ListView.builder(
-                        shrinkWrap: true,
-                        physics: const ClampingScrollPhysics(),
-                        itemCount: context.watch<HomeProvider>().todos.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(context
-                                .watch<HomeProvider>()
-                                .todos[index]
-                                .title
-                                .toString()),
-                          );
-                        },
-                      )
-                    ],
-                  )
-                ],
+              return RefreshIndicator(
+                onRefresh: context.read<HomeProvider>().getAll,
+                child: ListView(
+                  children: [
+                    // users
+                    ExpansionTile(
+                      title: const Text('Users'),
+                      children: <Widget>[
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: context.watch<HomeProvider>().users.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(context
+                                  .watch<HomeProvider>()
+                                  .users[index]
+                                  .name
+                                  .toString()),
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                    // posts
+                    ExpansionTile(
+                      title: const Text("Posts"),
+                      children: <Widget>[
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount:
+                              Provider.of<HomeProvider>(context, listen: false)
+                                  .posts
+                                  .length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              onTap: () {
+                                Navigator.of(context).push(FadePageRoute(
+                                  parameter:
+                                      Provider.of<HomeProvider>(context, listen: false)
+                                  .posts[index],
+                                  builder: (context) =>
+                                      PostInfoPage(data: context),
+                                ));
+                              },
+                              title: Text(context
+                                  .watch<HomeProvider>()
+                                  .posts[index]
+                                  .title
+                                  .toString()),
+                            );
+                          },
+                        )
+                      ],
+                    )
+                    // todos
+                    ,
+                    ExpansionTile(
+                      title: const Text("Todos"),
+                      children: <Widget>[
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const ClampingScrollPhysics(),
+                          itemCount: context.watch<HomeProvider>().todos.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                              title: Text(context
+                                  .watch<HomeProvider>()
+                                  .todos[index]
+                                  .title
+                                  .toString()),
+                            );
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
               );
             }
           },

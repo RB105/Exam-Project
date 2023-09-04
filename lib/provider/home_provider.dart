@@ -20,7 +20,7 @@ class HomeProvider extends ChangeNotifier {
   // instance from service
   JsonPlaceHolderService service = JsonPlaceHolderService();
 
-  void getAll() {
+  Future<void> getAll() async {
     getUsers();
     getPosts();
     getTodos();
