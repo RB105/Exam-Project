@@ -1,21 +1,27 @@
 part of 'user_bloc.dart';
 
-abstract class UserInputEvent {}
+/// user events
+abstract class UserEvent {}
 
-class UpdateNameEvent extends UserInputEvent {
-  final String name;
-
-  UpdateNameEvent(this.name);
+class UpdateCityEvent extends UserEvent {
+  bool fromWhere;
+  AirPortsModel airPortsModel;
+  UpdateCityEvent(this.fromWhere, this.airPortsModel);
 }
 
-class UpdateAgeEvent extends UserInputEvent {
-  final int age;
-
-  UpdateAgeEvent(this.age);
+enum UpdateNumType {
+  incrementAdult,
+  decrementAdult,
+  incrementChild,
+  decrementChild,
+  incrementBaby,
+  decrementBaby
 }
 
-class UpdateDateEvent extends UserInputEvent {
-  final DateTime date;
-
-  UpdateDateEvent(this.date);
+class UpdateNumEvent extends UserEvent {
+  UpdateNumType updateNumType;
+  int num;
+  UpdateNumEvent({required this.updateNumType, required this.num});
 }
+
+class TicketSearchEvent extends UserEvent {}
